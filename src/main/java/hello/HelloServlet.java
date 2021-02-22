@@ -5,6 +5,7 @@
  */
 package hello;
 
+import java.util.Date;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -60,28 +61,53 @@ public class HelloServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String msg = "";
-        
+        String aprSemData="Não faço idéia qual é a sua idade ,nem quanto falta para o seu aniversário.";
+        String aprIdade="";
         String lang = request.getParameter("lang");
         if(lang==null)
             lang = "pt";
         switch(lang){
             case "pt":
                 msg = "Alô, ";
+                aprSemData=" Não faço idéia qual é a sua idade ,nem quanto falta para o seu aniversário.";
+                aprIdade=" Sua idade é ";
                 break;
             case "en":
                 msg = "Hello, ";
+                aprSemData=" I have no idea how old you are or how far away you are for your birthday.";
+                aprIdade=" Your age is ";
                 break;
             case "fr":
                 msg = "Bonjour, ";
+                aprSemData=" Je n'ai aucune idée de votre âge ou de votre distance pour votre anniversaire.";
+                aprIdade=" Votre âge est ";
                 break;
         }
         
         String nome = request.getParameter("nome");
-
-        if(nome==null)
+        Date dataNas=new Date(request.getParameter("dataNas"));
+        Date dataHj=new Date();
+        int idade=0;
+        if(nome==null){
             nome = "Fulano";
+        }
         
         msg = msg+nome+"!";
+        if(dataNas==null|| dataNas.compareTo(dataHj)>0){
+         msg=msg+aprSemData;
+        }
+        else{
+            idade=dataHj.getYear()-dataNas.getYear()-1;
+            if(dataHj.getMonth()>dataNas.getMonth()){
+                   idade+=1;
+            }
+            else if(dataHj.getMonth()==dataNas.getMonth()){
+                       if(dataHj.getDate()>=dataNas.getDate()){
+                              idade+=1;
+                       }
+            }
+            msg=msg+aprIdade+idade+".";
+        }
 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
