@@ -95,9 +95,13 @@ public class HelloServlet extends HttpServlet {
         String nome = request.getParameter("nome");
         String dataStr=request.getParameter("dataNas");
         Date dataNas=null;
-        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy"); 
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd"); 
         if(dataStr!=null){
-           //dataNas=format.parse(dataStr);
+           try {
+               dataNas=format.parse(dataStr); 
+           } catch (ParseException ex) {
+            System.err.println(ex);
+           }
         }
         Date dataHj=new Date();
         int idade=0;
@@ -185,9 +189,13 @@ public class HelloServlet extends HttpServlet {
                 String nome = request.getParameter("nome");
                 String dataStr=request.getParameter("dataNas");
                 Date dataNas=null;
-                SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy"); 
+                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd"); 
                 if(dataStr!=null){
-                   //dataNas=format.parse(dataStr);
+                    try {
+                        dataNas=format.parse(dataStr); 
+                    } catch (ParseException ex) {
+                        System.err.println(ex);
+                    }
                 }
                 Date dataHj=new Date();
                 int idade=0;
@@ -196,8 +204,8 @@ public class HelloServlet extends HttpServlet {
                 }
                 
                 msg = msg+nome+"!";
-                if(dataStr!=null){
-                 msg=msg+aprSemData+dataStr;
+                if(dataStr==null){
+                 msg=msg+aprSemData;
                 }
                 else if(dataNas.compareTo(dataHj)<=0){
                     idade=dataHj.getYear()-dataNas.getYear()-1;
