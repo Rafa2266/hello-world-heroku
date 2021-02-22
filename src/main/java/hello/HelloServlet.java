@@ -68,24 +68,28 @@ public class HelloServlet extends HttpServlet {
             lang = "pt";
         switch(lang){
             case "pt":
-                msg = "Alô, ";
-                aprSemData=" Não faço idéia qual é a sua idade ,nem quanto falta para o seu aniversário.";
+                msg = "Alô,";
+                aprSemData="não faço idéia qual é a sua idade ,nem quanto falta para o seu aniversário.";
                 aprIdade=" Sua idade é ";
                 break;
             case "en":
                 msg = "Hello, ";
-                aprSemData=" I have no idea how old you are or how far away you are for your birthday.";
+                aprSemData="I have no idea how old you are or how far away you are for your birthday.";
                 aprIdade=" Your age is ";
                 break;
             case "fr":
                 msg = "Bonjour, ";
-                aprSemData=" Je n'ai aucune idée de votre âge ou de votre distance pour votre anniversaire.";
+                aprSemData="je n'ai aucune idée de votre âge ou de votre distance pour votre anniversaire.";
                 aprIdade=" Votre âge est ";
                 break;
         }
         
         String nome = request.getParameter("nome");
-        Date dataNas=new Date(request.getParameter("dataNas"));
+        String dataStr=request.getParameter("dataNas");
+        Date dataNas=null;
+        if(dataStr!=null){
+           dataNas=new Date(dataStr);
+        }
         Date dataHj=new Date();
         int idade=0;
         if(nome==null){
@@ -93,7 +97,7 @@ public class HelloServlet extends HttpServlet {
         }
         
         msg = msg+nome+"!";
-        if(dataNas==null){
+        if(dataStr==null){
          msg=msg+aprSemData;
         }
         else if(dataNas.compareTo(dataHj)<=0){
@@ -175,7 +179,7 @@ public class HelloServlet extends HttpServlet {
             out.println("<title>Servlet HelloServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HelloServlet</h1>");
+            out.println("<h1>Servlet HelloServle</h1>");
             out.println("<p>" + msg + "</p>");
             out.println("</body>");
             out.println("</html>");
