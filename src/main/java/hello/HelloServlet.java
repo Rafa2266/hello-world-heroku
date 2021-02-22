@@ -7,7 +7,10 @@ package hello;
 
 import java.util.Date;
 import java.io.IOException;
+import java.text.ParseException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -92,8 +95,9 @@ public class HelloServlet extends HttpServlet {
         String nome = request.getParameter("nome");
         String dataStr=request.getParameter("dataNas");
         Date dataNas=null;
+        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy"); 
         if(dataStr!=null){
-           dataNas=new Date(dataStr);
+           //dataNas=format.parse(dataStr);
         }
         Date dataHj=new Date();
         int idade=0;
@@ -148,7 +152,7 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                
+
                 String msg = "";
                 String aprSemData="Não faço idéia qual é a sua idade ,nem quanto falta para o seu aniversário.";
                 String aprIdade="";
@@ -181,8 +185,9 @@ public class HelloServlet extends HttpServlet {
                 String nome = request.getParameter("nome");
                 String dataStr=request.getParameter("dataNas");
                 Date dataNas=null;
+                SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy"); 
                 if(dataStr!=null){
-                   dataNas=new Date(dataStr);
+                   //dataNas=format.parse(dataStr);
                 }
                 Date dataHj=new Date();
                 int idade=0;
@@ -191,8 +196,8 @@ public class HelloServlet extends HttpServlet {
                 }
                 
                 msg = msg+nome+"!";
-                if(dataStr==null){
-                 msg=msg+aprSemData;
+                if(dataStr!=null){
+                 msg=msg+aprSemData+dataStr;
                 }
                 else if(dataNas.compareTo(dataHj)<=0){
                     idade=dataHj.getYear()-dataNas.getYear()-1;
