@@ -93,13 +93,13 @@ public class HelloServlet extends HttpServlet {
         }
         
         msg = msg+nome+"!";
-        if(dataNas==null|| dataNas.compareTo(dataHj)>0){
+        if(dataNas==null){
          msg=msg+aprSemData;
         }
-        else{
+        else if(dataNas.compareTo(dataHj)<=0){
             idade=dataHj.getYear()-dataNas.getYear()-1;
-            if(dataHj.getMonth()>dataNas.getMonth()){
-                   idade+=1;
+               if (dataHj.getMonth()>dataNas.getMonth()){
+                        idade+=1;
             }
             else if(dataHj.getMonth()==dataNas.getMonth()){
                        if(dataHj.getDate()>=dataNas.getDate()){
@@ -107,6 +107,9 @@ public class HelloServlet extends HttpServlet {
                        }
             }
             msg=msg+aprIdade+idade+".";
+        }
+        else{
+            msg=msg+aprSemData;
         }
 
         response.setContentType("text/html;charset=UTF-8");
