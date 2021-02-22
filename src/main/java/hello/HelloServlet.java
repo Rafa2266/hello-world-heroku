@@ -64,7 +64,7 @@ public class HelloServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String msg = "";
-        String aprSemData="Não faço idéia qual é a sua idade ,nem quanto falta para o seu aniversário.";
+        String aprSemData="Não faço idéia qual é a sua idade.";
         String aprIdade="";
         String lang = request.getParameter("lang");
         if(lang==null)
@@ -158,7 +158,7 @@ public class HelloServlet extends HttpServlet {
             throws ServletException, IOException {
 
                 String msg = "";
-                String aprSemData="Não faço idéia qual é a sua idade ,nem quanto falta para o seu aniversário.";
+                String aprSemData="Não faço idéia qual é a sua idade.";
                 String aprIdade="";
                 String lang = request.getParameter("lang");
                 if(lang==null)
