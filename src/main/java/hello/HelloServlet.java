@@ -5,8 +5,12 @@
  */
 package hello;
 
+import java.util.Date;
 import java.io.IOException;
+import java.text.ParseException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,28 +64,70 @@ public class HelloServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String msg = "";
-        
+        String aprSemData="Não faço idéia qual é a sua idade.";
+        String aprIdade="";
         String lang = request.getParameter("lang");
         if(lang==null)
             lang = "pt";
         switch(lang){
             case "pt":
                 msg = "Alô, ";
+                aprSemData=" Não faço idéia qual é a sua idade.";
+                aprIdade=" Sua idade é ";
                 break;
             case "en":
                 msg = "Hello, ";
+                aprSemData=" I have no idea how old you are.";
+                aprIdade=" Your age is ";
                 break;
             case "fr":
                 msg = "Bonjour, ";
+                aprSemData=" Je n'ai aucune idée de votre âge.";
+                aprIdade=" Votre âge est ";
+                break;
+            case "de":
+                msg = "Hallo, ";
+                aprSemData=" Ich habe keine Ahnung.";
+                aprIdade=" Dein Alter ist ";
                 break;
         }
         
         String nome = request.getParameter("nome");
-
-        if(nome==null)
+        String dataStr=request.getParameter("dataNas");
+        Date dataNas=null;
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd"); 
+        if(dataStr!=null){
+           try {
+               dataNas=format.parse(dataStr); 
+           } catch (ParseException ex) {
+            System.err.println(ex);
+           }
+        }
+        Date dataHj=new Date();
+        int idade=0;
+        if(nome==null){
             nome = "Fulano";
+        }
         
         msg = msg+nome+"!";
+        if(dataStr==null){
+         msg=msg+aprSemData;
+        }
+        else if(dataNas.compareTo(dataHj)<=0){
+            idade=dataHj.getYear()-dataNas.getYear()-1;
+               if (dataHj.getMonth()>dataNas.getMonth()){
+                        idade+=1;
+            }
+            else if(dataHj.getMonth()==dataNas.getMonth()){
+                       if(dataHj.getDate()>=dataNas.getDate()){
+                              idade+=1;
+                       }
+            }
+            msg=msg+aprIdade+idade+".";
+        }
+        else{
+            msg=msg+aprSemData;
+        }
 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -110,32 +156,72 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String msg = "";
-        
-        String lang = request.getParameter("lang");
-        if(lang==null)
-            lang = "pt";
-        switch(lang){
-            case "pt":
-                msg = "Alô, ";
-                break;
-            case "en":
-                msg = "Hello, ";
-                break;
-            case "fr":
-                msg = "Bonjour, ";
-                break;
-            case "de":
-                msg = "Hallo, ";
-                break;
-        }
-        
-        String nome = request.getParameter("nome");
 
-        if(nome==null)
-            nome = "Fulano";
-        
-        msg = msg+nome+"!";
+                String msg = "";
+                String aprSemData="";
+                String aprIdade="";
+                String lang = request.getParameter("lang");
+                if(lang==null)
+                    lang = "pt";
+                switch(lang){
+                    case "pt":
+                        msg = "Alô, ";
+                        aprSemData=" Não faço idéia qual é a sua idade.";
+                        aprIdade=" Sua idade é ";
+                        break;
+                    case "en":
+                        msg = "Hello, ";
+                        aprSemData=" I have no idea how old you are.";
+                        aprIdade=" Your age is ";
+                        break;
+                    case "fr":
+                        msg = "Bonjour, ";
+                        aprSemData=" Je n'ai aucune idée de votre âge.";
+                        aprIdade=" Votre âge est ";
+                        break;
+                    case "de":
+                        msg = "Hallo, ";
+                        aprSemData=" Ich habe keine Ahnung.";
+                        aprIdade=" Dein Alter ist ";
+                        break;
+                }
+                
+                String nome = request.getParameter("nome");
+                String dataStr=request.getParameter("dataNas");
+                Date dataNas=null;
+                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd"); 
+                if(dataStr!=null){
+                    try {
+                        dataNas=format.parse(dataStr); 
+                    } catch (ParseException ex) {
+                        System.err.println(ex);
+                    }
+                }
+                Date dataHj=new Date();
+                int idade=0;
+                if(nome==null){
+                    nome = "Fulano";
+                }
+                
+                msg = msg+nome+"!";
+                if(dataStr==null){
+                 msg=msg+aprSemData;
+                }
+                else if(dataNas.compareTo(dataHj)<=0){
+                    idade=dataHj.getYear()-dataNas.getYear()-1;
+                       if (dataHj.getMonth()>dataNas.getMonth()){
+                                idade+=1;
+                    }
+                    else if(dataHj.getMonth()==dataNas.getMonth()){
+                               if(dataHj.getDate()>=dataNas.getDate()){
+                                      idade+=1;
+                               }
+                    }
+                    msg=msg+aprIdade+idade+".";
+                }
+                else{
+                    msg=msg+aprSemData;
+                }
 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -146,7 +232,7 @@ public class HelloServlet extends HttpServlet {
             out.println("<title>Servlet HelloServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HelloServlet</h1>");
+            out.println("<h1>Servlet HelloServle</h1>");
             out.println("<p>" + msg + "</p>");
             out.println("</body>");
             out.println("</html>");
