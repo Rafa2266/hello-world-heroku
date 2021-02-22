@@ -72,22 +72,22 @@ public class HelloServlet extends HttpServlet {
         switch(lang){
             case "pt":
                 msg = "Alô, ";
-                aprSemData=" Não faço idéia qual é a sua idade ,nem quanto falta para o seu aniversário.";
+                aprSemData=" Não faço idéia qual é a sua idade.";
                 aprIdade=" Sua idade é ";
                 break;
             case "en":
                 msg = "Hello, ";
-                aprSemData=" I have no idea how old you are or how far away you are for your birthday.";
+                aprSemData=" I have no idea how old you are.";
                 aprIdade=" Your age is ";
                 break;
             case "fr":
                 msg = "Bonjour, ";
-                aprSemData=" Je n'ai aucune idée de votre âge ou de votre distance pour votre anniversaire.";
+                aprSemData=" Je n'ai aucune idée de votre âge.";
                 aprIdade=" Votre âge est ";
                 break;
             case "de":
                 msg = "Hallo, ";
-                aprSemData=" Ich habe keine Ahnung, wie alt du bist oder wie viel zu deinem Geburtstag.";
+                aprSemData=" Ich habe keine Ahnung.";
                 aprIdade=" Dein Alter ist ";
                 break;
         }
@@ -158,7 +158,7 @@ public class HelloServlet extends HttpServlet {
             throws ServletException, IOException {
 
                 String msg = "";
-                String aprSemData="Não faço idéia qual é a sua idade.";
+                String aprSemData="";
                 String aprIdade="";
                 String lang = request.getParameter("lang");
                 if(lang==null)
@@ -166,22 +166,22 @@ public class HelloServlet extends HttpServlet {
                 switch(lang){
                     case "pt":
                         msg = "Alô, ";
-                        aprSemData=" Não faço idéia qual é a sua idade ,nem quanto falta para o seu aniversário.";
+                        aprSemData=" Não faço idéia qual é a sua idade.";
                         aprIdade=" Sua idade é ";
                         break;
                     case "en":
                         msg = "Hello, ";
-                        aprSemData=" I have no idea how old you are or how far away you are for your birthday.";
+                        aprSemData=" I have no idea how old you are.";
                         aprIdade=" Your age is ";
                         break;
                     case "fr":
                         msg = "Bonjour, ";
-                        aprSemData=" Je n'ai aucune idée de votre âge ou de votre distance pour votre anniversaire.";
+                        aprSemData=" Je n'ai aucune idée de votre âge.";
                         aprIdade=" Votre âge est ";
                         break;
                     case "de":
                         msg = "Hallo, ";
-                        aprSemData=" Ich habe keine Ahnung, wie alt du bist oder wie viel zu deinem Geburtstag.";
+                        aprSemData=" Ich habe keine Ahnung.";
                         aprIdade=" Dein Alter ist ";
                         break;
                 }
